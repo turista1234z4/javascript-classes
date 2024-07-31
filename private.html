@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private</title>
+</head>
+<body>
+    
+</body>
+<script>
+
+    class Imposto{
+        constructor(nome, salario){
+            this.nome = nome;0
+            this.salario = salario;
+        }
+
+        #porcentagemImposto  = 0.2;
+        #calcularImposto(){
+            return this.salario * this.#porcentagemImposto;
+        }
+
+        Obtersalario(){
+            return this.salario - this.#calcularImposto();
+        }
+
+    }
+
+    let pessoa = new Imposto("josé" , 1000)
+    console.log(`O salario liquido de ${pessoa.nome} é R$: ${pessoa.Obtersalario()}`)
+
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes em javascript</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+
+    class Pessoa {
+        constructor(nome, telefone, email) {
+            this.email = email;
+            this.nome = nome;
+            this.telefone = telefone;
+        }
+
+        falar() {
+            console.log(`${this.nome} está falando`)
+        }
+        andar() {
+            console.log(`${this.nome} está andando`)
+
+        }
+
+    }
+    class PessoaFísica extends Pessoa {
+        constructor(nome, telefone, email, cpf) {
+            super(nome, telefone, email);
+            this.cpf = cpf;
+        }
+    }
+
+    class Pessoajurídica extends Pessoa {
+        constructor(nome, telefone, email, cnpj) {
+            super(nome, telefone, email);
+            this.cnpj = cnpj;
+        }
+
+        PagarSalario() {
+            console.log(`${this.nome} pagou o salario`)
+            //super.andar(); chama o método dentro de um método comum
+        }
+
+    }
+
+    let pessoa1 = new PessoaFísica("José", "123456", "josé@josé.com", "40147056");
+    pessoa1.andar();
+    console.log(pessoa1.nome, pessoa1.cpf);
+
+    let pessoa2 = new Pessoajurídica("João", "654321", "joão@joão.com.br", "65074104")
+    pessoa2.andar();
+    pessoa2.PagarSalario();
+    
+</script>
+
+</html>

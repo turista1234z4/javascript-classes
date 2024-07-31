@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get_Set</title>
+</head>
+
+<body>
+
+
+</body>
+
+<script>
+
+    class Pessoa {
+        nome;
+        get username(){
+            return this.Ajustanome(this.nome);
+        }
+
+        set setNome(nome) {
+            if (!nome) {
+                throw new Error("O nome não pode ser vazio")
+            }
+
+            if (this.verificaCaracteresEspeciais(nome)){
+                throw new Error("O nome não pode ter caracteres especiais")
+            }
+
+            this.nome = nome;
+        }
+
+        verificaCaracteresEspeciais(string){
+            const regex = /[!@#$%&*()/\\]/;
+            return regex.test(string);
+        }
+
+        Ajustanome (string){
+            return string
+                .replace(/([a-z])([A-Z])/g, "$1-$2")
+                .replace(' ', '-')
+                .toLowerCase();
+        }
+    }
+
+    let pessoa = new Pessoa();
+    pessoa.setNome = "Teste nome";
+    console.log("Nome :", pessoa.username);
+
+</script>
+
+</html>
