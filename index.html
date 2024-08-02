@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+</head>
+
+<body>
+    <div id="account-info">
+        <h2>Informações da Conta</h2>
+        <p id="account-name"></p>
+        <p id="account-number"></p>
+        <p id="account-balance"></p>
+    </div>
+
+    <div id="transaction-info">
+        <h2>Realizar Transações</h2>
+        <button onclick="acessarConta()">Acessar Conta</button>
+        <button onclick="realizarSaque()">Realizar Saque</button>
+        <button onclick="realizarDeposito()">Realizar Depósito</button>
+    </div>
+
+    <div id="extrato-info">
+        <h2>Extrato</h2>
+        <ul id="extrato-list"></ul>
+    </div>
+
+    <script>
+        class Utils {
+            static IdiomaDoSistema = "pt-br";
+            static ConfigDate = {
+                hour: "2-digit",
+                minute: "2-digit"
+            };
+
+            static GetFormatedDate() {
+                let date = new Date();
+                return date.toLocaleString(this.IdiomaDoSistema, this.ConfigDate);
+            }
+        }
+
+        class Conta {
+            constructor(nome, numero, saldo) {
+                this.nome = nome;
+                this.numero = numero;
+                this.saldo = saldo;
+                this.extrato = [];
+            }
+
+            get ImprimirExtrato() {
+                const extratoList = document.getElementById('extrato-list');
+                extratoList.innerHTML = ''; // Limpa o extrato antes de adicionar os itens
+
+                this.extrato.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    extratoList.appendChild(li);
+                });
+            }
+
+            RegistrarNoExtrato(item) {
+                this.extrato.push(item);
+            }
+
+            AtualizarInformacoes() {
+                document.getElementById('account-name').textContent = `Nome: ${this.nome}`;
+                document.getElementById('account-number').textContent = `Número da Conta: ${this.numero}`;
+                document.getElementById('account-balance').textContent = `Saldo: R$${this.saldo.toFixed(2)}`;
+            }
+        }
+
+        class Poupanca extends Conta {
+            #TaxaDeSaque = 0.10;
+
+            saque(Valor) {
+                let TaxaDeSaqueDoValor = Valor * this.#TaxaDeSaque;
+                let ValorDeSaque = Valor + TaxaDeSaqueDoValor;
+
+                if (ValorDeSaque > this.saldo) {
+                    alert(`Saldo insuficiente`);
+                } else {
+                    this.saldo = this.saldo - ValorDeSaque;
+                    this.RegistrarNoExtrato(`${Utils.GetFormatedDate()} - Saque: R$${Valor} --- Saldo: R$${this.saldo}`);
+                    alert(`O saldo atual após o saque é de R$${this.saldo}`);
+                    this.AtualizarInformacoes();
+                }
+            }
+
+            deposito(Valor) {
+                this.saldo = this.saldo + Valor;
+                this.RegistrarNoExtrato(`${Utils.GetFormatedDate()} - Depósito: R$${Valor} --- Saldo: R$${this.saldo}`);
+                this.AtualizarInformacoes();
+            }
+        }
+
+        let nome = prompt('Digite seu nome');
+        let saldo_conta = parseFloat(prompt('Quanto saldo você deseja iniciar na sua conta?'));
+
+        let NovaContaPoupança = new Poupanca(nome, Math.floor(Math.random() * 99999) + 1, saldo_conta);
+        NovaContaPoupança.AtualizarInformacoes();
+
+        function acessarConta() {
+            NovaContaPoupança.ImprimirExtrato;
+        }
+
+        function realizarSaque() {
+            let Valor_saque = parseFloat(prompt("Digite quanto deseja sacar:"));
+            NovaContaPoupança.saque(Valor_saque);
+        }
+
+        function realizarDeposito() {
+            let Valor_Deposito = parseFloat(prompt("Digite quanto deseja depositar:"));
+            NovaContaPoupança.deposito(Valor_Deposito);
+        }
+    </script>
+</body>
+
+</html>

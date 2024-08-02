@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Static</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+
+    class Utils{
+
+        static LinguagemdoSistema = "PT-BR"
+
+        static ObterdataProximoMês(){
+            let now = new Date();
+            let date;
+
+            if(now.getMonth() === 11){
+                date =  new Date(now.getFullYear(), + 1, 0, now.getDate())
+            }
+            else{
+                date = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+            }
+            return date.toLocaleDateString(this.LinguagemdoSistema)
+            return date;
+        }
+    }
+
+    console.log(`O próximo mês é: ${Utils.ObterdataProximoMês()}` )
+    console.log(`A linguagem do sistema é : ${Utils.LinguagemdoSistema}`)
+</script>
+</html>
