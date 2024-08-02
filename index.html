@@ -28,6 +28,7 @@
         <ul id="extrato-list"></ul>
     </div>
 
+
     <script>
         class Utils {
             static IdiomaDoSistema = "pt-br";
@@ -109,13 +110,17 @@
         function realizarSaque() {
             let Valor_saque = parseFloat(prompt("Digite quanto deseja sacar:"));
             NovaContaPoupança.saque(Valor_saque);
+            NovaContaPoupança.ImprimirExtrato;
         }
 
         function realizarDeposito() {
             let Valor_Deposito = parseFloat(prompt("Digite quanto deseja depositar:"));
             NovaContaPoupança.deposito(Valor_Deposito);
+            NovaContaPoupança.ImprimirExtrato;
         }
+
     </script>
 </body>
+
 
 </html>
